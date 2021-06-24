@@ -104,23 +104,14 @@
       <div class="container" data-aos="fade-up">
         <h3> Rekomendasi</h3>
         <h4><?php  
-        if ($tingkat==1) {
-          echo "<h4>Tingkatkan :</h4>";
-        }
-        if ($tingkat==2){
-          echo "<h4>Sempurnakan :</h4>";
-        }
-
+        echo $tingkat;
         ?>
           
         </h4>
-        <?php foreach ($rekomendasi as $rekomendasi): ?>
-          <?php foreach ($list_kekurangan as $kekurangan): ?>
-            <?php if (!($rekomendasi->id_pertanyaan == $kekurangan)) continue; ?>
+        <?php foreach ($list_kekurangan as $rekomendasi): ?>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><p><?php echo $rekomendasi->rekomendasi ?></p></li>
               </ul>
-          <?php endforeach; ?>    
         <?php endforeach; ?>
       </div>
     </section><!-- End Hasil Section -->

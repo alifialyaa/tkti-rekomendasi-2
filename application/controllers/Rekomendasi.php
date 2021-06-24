@@ -31,6 +31,7 @@ class Rekomendasi extends CI_Controller {
     {
     	$tingkat=5;
         if (isset($_POST['submit'])) {
+        	$saran=[1, 1, 1, 1, 1, 1];
 			$id_it_process = $id;
 			$jumlah_pertanyaan_level0 = 0;
 			$jumlah_pertanyaan_level1 = 0;
@@ -65,7 +66,12 @@ class Rekomendasi extends CI_Controller {
 			$kontribusi_level4 = 0;
 			$kontribusi_level5 = 0;
 			$jumlah_kontribusi = 0;
-			$kekurangan = array();
+			$kekurangan[0] = [];
+			$kekurangan[1] = [];
+			$kekurangan[2] = [];
+			$kekurangan[3] = [];
+			$kekurangan[4] = [];
+			$kekurangan[5] = [];
 
 			$nomor_pertanyaan = $this->kuesioner_model->getIdPertanyaan($id_it_process);
 			foreach ($nomor_pertanyaan as $value) 
@@ -75,14 +81,15 @@ class Rekomendasi extends CI_Controller {
 					if($nilai == 0)
 					{	
 						$tingkat = 0;
-						array_push($kekurangan, $value->id_pertanyaan);
+						array_push($kekurangan[$value->level], $value->id_pertanyaan);
 					}
 
 					$it_process = $value->it_process;
 					// echo $nilai;
 					// echo "<br>";
 					if($value->level == 0)
-					{
+					{	
+						if($saran[0]>$nilai)$saran[0]=$nilai;
 						$jumlah_pertanyaan_level0++;
 						$jumlah_level0 += $nilai;
 						// echo "Jumlah sementara level 0: " . $jumlah_level0 . " " . $jumlah_pertanyaan_level0;
@@ -91,6 +98,7 @@ class Rekomendasi extends CI_Controller {
 					if($value->level == 1)
 					{						
 						if($tingkat>1)$tingkat=1;
+						if($saran[1]>$nilai)$saran[1]=$nilai;
 						$jumlah_pertanyaan_level1++;
 						$jumlah_level1 += $nilai;
 						// echo "Jumlah sementara level 1: " . $jumlah_level1 . " " . $jumlah_pertanyaan_level1;
@@ -98,7 +106,7 @@ class Rekomendasi extends CI_Controller {
 					}
 					if($value->level == 2)
 					{
-						if($tingkat>2)$tingkat=2;
+						if($saran[2]>$nilai)$saran[2]=$nilai;
 						$jumlah_pertanyaan_level2++;
 						$jumlah_level2 += $nilai;
 						// echo "Jumlah sementara level 2: " . $jumlah_level2 . " " . $jumlah_pertanyaan_level2;
@@ -106,7 +114,7 @@ class Rekomendasi extends CI_Controller {
 					}
 					if($value->level == 3)
 					{
-						if($tingkat>3)$tingkat=3;
+						if($saran[3]>$nilai)$saran[3]=$nilai;
 						$jumlah_pertanyaan_level3++;
 						$jumlah_level3 += $nilai;
 						// echo "Jumlah sementara level 3: " . $jumlah_level3 . " " . $jumlah_pertanyaan_level3;
@@ -114,7 +122,7 @@ class Rekomendasi extends CI_Controller {
 					}
 					if($value->level == 4)
 					{
-						if($tingkat>4)$tingkat=4;
+						if($saran[4]>$nilai)$saran[4]=$nilai;
 						$jumlah_pertanyaan_level4++;
 						$jumlah_level4 += $nilai;
 						// echo "Jumlah sementara level 4: " . $jumlah_level4 . " " . $jumlah_pertanyaan_level4;
@@ -122,6 +130,7 @@ class Rekomendasi extends CI_Controller {
 					}
 					if($value->level == 5)
 					{
+						if($saran[5]>$nilai)$saran[5]=$nilai;
 						$jumlah_pertanyaan_level5++;
 						$jumlah_level5 += $nilai;
 						// echo "Jumlah sementara level 5: " . $jumlah_level5 . " " . $jumlah_pertanyaan_level5;
@@ -252,15 +261,34 @@ class Rekomendasi extends CI_Controller {
 			$data["nilai_maturity"] = $nilai_maturity_level;
 			$data["nilai_maturity_persen"] = $nilai_maturity_level / 5 * 100;
 			$data["level"] = $level;
-			// if($tingkat>0){
-			// 	$data["list_kekurangan"]= $this->rekomendasi_model->getIdLevel($level, $id);
-			// }
-			// else{
-			// 	$data["list_kekurangan"] = $kekurangan;
-			// }
-			$data["list_kekurangan"] = $kekurangan;
-			$data["rekomendasi"] = $this->rekomendasi_model->getRecomend($level);
-			$data["tingkat"] = $tingkat;
+
+			if($saran[$level]==0){
+				$data["list_kekurangan"]= $this->rekomendasi_model->getIdLevel($kekurangan[$level]);
+				$data["tingkat"]="Mulailah:";
+			}
+			if($saran[$level]==0.33){
+				$data["list_kekurangan"]= $this->rekomendasi_model->getRecomend($level, $id);
+				$data["tingkat"]="Perbaiki:";
+
+			}
+			if($saran[$level]==0.66){
+				$data["list_kekurangan"]= $this->rekomendasi_model->getRecomend($level, $id);
+				$data["tingkat"]="Sempurnakan:";
+			
+			}
+			if($saran[$level]==1){
+				$data["list_kekurangan"]= $this->rekomendasi_model->getRecomend($level, $id);
+				$data["tingkat"]="Mulailah:";
+			}
+			print_r("level");
+			print_r($level);
+			print_r("kekurangan");
+			print_r($data["list_kekurangan"]);
+			print_r("id process");
+			print_r($id);
+			print_r("saran ke:");
+			print_r($saran[$level]);
+			// $data["tingkat"] = $tingkat;
 
 			$this->load->view('rekomendasi', $data);
         }

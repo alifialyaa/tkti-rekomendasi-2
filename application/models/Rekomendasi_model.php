@@ -16,17 +16,27 @@ class Rekomendasi_model extends CI_Model
         return $query->result();
     }
 
-    public function getRecomend($level = null){
+    public function getRecomend($level = null, $id_it_process= null){
 
-        $sql='SELECT rekomendasi.id_pertanyaan, rekomendasi.id_rekomendasi, rekomendasi.rekomendasi FROM rekomendasi, pertanyaan WHERE rekomendasi.id_pertanyaan = pertanyaan.id_pertanyaan and pertanyaan.level =?';
-        $query=$this->db->query($sql, $level);
+        $sql='SELECT rekomendasi.id_pertanyaan, rekomendasi.id_rekomendasi, rekomendasi.rekomendasi FROM rekomendasi, pertanyaan WHERE rekomendasi.id_pertanyaan = pertanyaan.id_pertanyaan and pertanyaan.level = '.$level.' and pertanyaan.id_it_process = ' .$id_it_process.';';
+        $query=$this->db->query($sql);
         return $query->result();       
     }
 
-    public function getIdLevel($level = null, $id_it_process){
-        $sql='SELECT pertanyaan.id_pertanyaan FROM pertanyaan WHERE pertanyaan.id_it_process =? and pertanyaan.level =?';
-        $query=$this->db->query($sql, array($id_it_process, $level));
-        return $query->result_array();       
+    public function getIdLevel($id){
+        $sql='SELECT * FROM rekomendasi WHERE ';
+        $n = count($id);
+        for ($i=0; $i < $n;) { 
+            $sql .= "rekomendasi.id_rekomendasi = ";
+            $sql .= $id[$i];
+            $i++;
+            if ($i<$n) {
+                $sql .= " or ";
+            }
+        }
+
+        $query=$this->db->query($sql);
+        return $query->result();       
     }
     
     public function getById($id)
