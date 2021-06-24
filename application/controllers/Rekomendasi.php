@@ -223,40 +223,42 @@ class Rekomendasi extends CI_Controller {
 
 			$jumlah_normalisasi = $normalisasi_level0 + $normalisasi_level1 + $normalisasi_level2 + $normalisasi_level3 + $normalisasi_level4 + $normalisasi_level5;
 			// echo "Jumlah normalisasi: " . $jumlah_normalisasi . "<br>";
-			$kontribusi_level1 = $normalisasi_level1 / 1;
-			$kontribusi_level2 = $normalisasi_level2 / 2;
-			$kontribusi_level3 = $normalisasi_level3 / 3;
-			$kontribusi_level4 = $normalisasi_level4 / 4;
-			$kontribusi_level5 = $normalisasi_level5 / 5;
+			$kontribusi_level1 = $normalisasi_level1 * 1;
+			$kontribusi_level2 = $normalisasi_level2 * 2;
+			$kontribusi_level3 = $normalisasi_level3 * 3;
+			$kontribusi_level4 = $normalisasi_level4 * 4;
+			$kontribusi_level5 = $normalisasi_level5 * 5;
 			$jumlah_kontribusi = $kontribusi_level0 + $kontribusi_level1 + $kontribusi_level2 + $kontribusi_level3 + $kontribusi_level4 + $kontribusi_level5;
 			// echo "Jumlah kontribusi: " . $jumlah_kontribusi . "<br>";
 			$nilai_maturity_level = $jumlah_kontribusi;
+			print_r($nilai_maturity_level);
+			$level = ceil($nilai_maturity_level);
+			// if($nilai_maturity_level == 0)
+			// {
+			// 	$level = 0;
 
-			if($nilai_maturity_level == 0)
-			{
-				$level = 0;
-			}
-			if($nilai_maturity_level >= 0.1 && $nilai_maturity_level <= 1)
-			{
-				$level = 1;
-			}
-			if($nilai_maturity_level >= 1.1 && $nilai_maturity_level <= 2)
-			{
-				$level = 2;
-			}
-			if($nilai_maturity_level >= 2.1 && $nilai_maturity_level <= 3)
-			{
-				$level = 3;
-			}
-			if($nilai_maturity_level >= 3.1 && $nilai_maturity_level <= 4)
-			{
-				$level = 4;
-			}
-			if($nilai_maturity_level >= 4.1 && $nilai_maturity_level <= 5)
-			{
-				$level = 5;
-			}
-
+			// }
+			// if($nilai_maturity_level >= 0.1 && $nilai_maturity_level <= 1)
+			// {
+			// 	$level = 1;
+			// }
+			// if($nilai_maturity_level >= 1.1 && $nilai_maturity_level <= 2)
+			// {
+			// 	$level = 2;
+			// }
+			// if($nilai_maturity_level >= 2.1 && $nilai_maturity_level <= 3)
+			// {
+			// 	$level = 3;
+			// }
+			// if($nilai_maturity_level >= 3.1 && $nilai_maturity_level <= 4)
+			// {
+			// 	$level = 4;
+			// 	print_r("teeesss");
+			// }
+			// if($nilai_maturity_level >= 4.1 && $nilai_maturity_level <= 5)
+			// {
+			// 	$level = 5;
+			// }
 			$data["it_process"] = $it_process;
 			$data["nilai_maturity"] = $nilai_maturity_level;
 			$data["nilai_maturity_persen"] = $nilai_maturity_level / 5 * 100;
