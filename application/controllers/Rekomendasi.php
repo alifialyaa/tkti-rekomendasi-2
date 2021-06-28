@@ -85,15 +85,13 @@ class Rekomendasi extends CI_Controller {
 					}
 
 					$it_process = $value->it_process;
-					// echo $nilai;
-					// echo "<br>";
+
 					if($value->level == 0)
 					{	
 						if($saran[0]>$nilai)$saran[0]=$nilai;
 						$jumlah_pertanyaan_level0++;
 						$jumlah_level0 += $nilai;
-						// echo "Jumlah sementara level 0: " . $jumlah_level0 . " " . $jumlah_pertanyaan_level0;
-						// echo "<br>";
+
 					}
 					if($value->level == 1)
 					{						
@@ -101,40 +99,35 @@ class Rekomendasi extends CI_Controller {
 						if($saran[1]>$nilai)$saran[1]=$nilai;
 						$jumlah_pertanyaan_level1++;
 						$jumlah_level1 += $nilai;
-						// echo "Jumlah sementara level 1: " . $jumlah_level1 . " " . $jumlah_pertanyaan_level1;
-						// echo "<br>";
+
 					}
 					if($value->level == 2)
 					{
 						if($saran[2]>$nilai)$saran[2]=$nilai;
 						$jumlah_pertanyaan_level2++;
 						$jumlah_level2 += $nilai;
-						// echo "Jumlah sementara level 2: " . $jumlah_level2 . " " . $jumlah_pertanyaan_level2;
-						// echo "<br>";
+
 					}
 					if($value->level == 3)
 					{
 						if($saran[3]>$nilai)$saran[3]=$nilai;
 						$jumlah_pertanyaan_level3++;
 						$jumlah_level3 += $nilai;
-						// echo "Jumlah sementara level 3: " . $jumlah_level3 . " " . $jumlah_pertanyaan_level3;
-						// echo "<br>";
+
 					}
 					if($value->level == 4)
 					{
 						if($saran[4]>$nilai)$saran[4]=$nilai;
 						$jumlah_pertanyaan_level4++;
 						$jumlah_level4 += $nilai;
-						// echo "Jumlah sementara level 4: " . $jumlah_level4 . " " . $jumlah_pertanyaan_level4;
-						// echo "<br>";
+
 					}
 					if($value->level == 5)
 					{
 						if($saran[5]>$nilai)$saran[5]=$nilai;
 						$jumlah_pertanyaan_level5++;
 						$jumlah_level5 += $nilai;
-						// echo "Jumlah sementara level 5: " . $jumlah_level5 . " " . $jumlah_pertanyaan_level5;
-						// echo "<br>";
+
 					}
 				}
 			}
@@ -193,14 +186,8 @@ class Rekomendasi extends CI_Controller {
 				$hasil_bagi_level5 = 0;
 			}		
 			
-			// echo "Hasil bagi level 0: " . $hasil_bagi_level0 . "<br>";
-			// echo "Hasil bagi level 1: " . $hasil_bagi_level1 . "<br>";
-			// echo "Hasil bagi level 2: " . $hasil_bagi_level2 . "<br>";
-			// echo "Hasil bagi level 3: " . $hasil_bagi_level3 . "<br>";
-			// echo "Hasil bagi level 4: " . $hasil_bagi_level4 . "<br>";
-			// echo "Hasil bagi level 5: " . $hasil_bagi_level5 . "<br>";
 			$jumlah_hasil_bagi = $hasil_bagi_level0 + $hasil_bagi_level1 + $hasil_bagi_level2 + $hasil_bagi_level3 + $hasil_bagi_level4 + $hasil_bagi_level5;
-			// echo "Jumlah hasil bagi: " . $jumlah_hasil_bagi . "<br>";
+	
 
 			if($jumlah_hasil_bagi != 0)
 			{
@@ -222,43 +209,18 @@ class Rekomendasi extends CI_Controller {
 			}
 
 			$jumlah_normalisasi = $normalisasi_level0 + $normalisasi_level1 + $normalisasi_level2 + $normalisasi_level3 + $normalisasi_level4 + $normalisasi_level5;
-			// echo "Jumlah normalisasi: " . $jumlah_normalisasi . "<br>";
+
 			$kontribusi_level1 = $normalisasi_level1 * 1;
 			$kontribusi_level2 = $normalisasi_level2 * 2;
 			$kontribusi_level3 = $normalisasi_level3 * 3;
 			$kontribusi_level4 = $normalisasi_level4 * 4;
 			$kontribusi_level5 = $normalisasi_level5 * 5;
 			$jumlah_kontribusi = $kontribusi_level0 + $kontribusi_level1 + $kontribusi_level2 + $kontribusi_level3 + $kontribusi_level4 + $kontribusi_level5;
-			// echo "Jumlah kontribusi: " . $jumlah_kontribusi . "<br>";
+
 			$nilai_maturity_level = $jumlah_kontribusi;
 			print_r($nilai_maturity_level);
 			$level = ceil($nilai_maturity_level);
-			// if($nilai_maturity_level == 0)
-			// {
-			// 	$level = 0;
-
-			// }
-			// if($nilai_maturity_level >= 0.1 && $nilai_maturity_level <= 1)
-			// {
-			// 	$level = 1;
-			// }
-			// if($nilai_maturity_level >= 1.1 && $nilai_maturity_level <= 2)
-			// {
-			// 	$level = 2;
-			// }
-			// if($nilai_maturity_level >= 2.1 && $nilai_maturity_level <= 3)
-			// {
-			// 	$level = 3;
-			// }
-			// if($nilai_maturity_level >= 3.1 && $nilai_maturity_level <= 4)
-			// {
-			// 	$level = 4;
-			// 	print_r("teeesss");
-			// }
-			// if($nilai_maturity_level >= 4.1 && $nilai_maturity_level <= 5)
-			// {
-			// 	$level = 5;
-			// }
+			
 			$data["it_process"] = $it_process;
 			$data["nilai_maturity"] = $nilai_maturity_level;
 			$data["nilai_maturity_persen"] = $nilai_maturity_level / 5 * 100;
@@ -282,15 +244,7 @@ class Rekomendasi extends CI_Controller {
 				$data["list_kekurangan"]= $this->rekomendasi_model->getRecomend($level, $id);
 				$data["tingkat"]="Mulailah:";
 			}
-			print_r("level");
-			print_r($level);
-			print_r("kekurangan");
-			print_r($data["list_kekurangan"]);
-			print_r("id process");
-			print_r($id);
-			print_r("saran ke:");
-			print_r($saran[$level]);
-			// $data["tingkat"] = $tingkat;
+	
 
 			$this->load->view('rekomendasi', $data);
         }
