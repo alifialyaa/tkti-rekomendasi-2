@@ -73,6 +73,9 @@
           <div class="d-lg-flex"><center>
             <a href="<?php echo site_url('form/index') ?>" class="btn-get-started scrollto">Mulai</a>
           </div>
+          <h3 style="color: white; text-align: center;"><br>
+          Rekomendasi dihasilkan berdasarkan jenis perusahaan Anda, Domain, IT resource, dan IT Process dari COBIT 4.1
+          </h3>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?php echo base_url(); ?>img/hero-img.png" class="img-fluid animated" alt="">
