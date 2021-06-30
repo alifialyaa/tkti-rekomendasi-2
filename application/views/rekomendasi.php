@@ -108,11 +108,12 @@
         ?>
           
         </h4>
+        <?php  if($saran!=1){?>
         <?php foreach ($list_kekurangan as $rekomendasi): ?>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><p><?php echo $rekomendasi->rekomendasi ?></p></li>
               </ul>
-        <?php endforeach; ?>
+        <?php endforeach;} ?>
       </div>
     </section><!-- End Hasil Section -->
   </main><!-- End #main -->

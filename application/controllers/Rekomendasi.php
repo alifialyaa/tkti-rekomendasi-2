@@ -78,6 +78,7 @@ class Rekomendasi extends CI_Controller {
 			{
 				if(isset($_POST['radio'.$value->id_pertanyaan])){
 					$nilai = $_POST['radio'.$value->id_pertanyaan];
+					// print_r($nilai);
 					if($nilai == 0)
 					{	
 						$tingkat = 0;
@@ -235,17 +236,17 @@ class Rekomendasi extends CI_Controller {
 				$data["tingkat"]="Perbaiki:";
 
 			}
-			if($saran[$level]==0.66){
+			if($saran[$level]==0.67){
 				$data["list_kekurangan"]= $this->rekomendasi_model->getRecomend($level, $id);
 				$data["tingkat"]="Sempurnakan:";
 			
 			}
 			if($saran[$level]==1){
 				$data["list_kekurangan"]= $this->rekomendasi_model->getRecomend($level, $id);
-				$data["tingkat"]="Mulailah:";
+				$data["tingkat"]="Tidak ada rekomendasi. Seluruh persyaratan telah terpenuhi";
 			}
 	
-
+			$data["saran"]=$saran[$level];
 			$this->load->view('rekomendasi', $data);
         }
     }
