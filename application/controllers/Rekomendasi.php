@@ -218,7 +218,7 @@ class Rekomendasi extends CI_Controller {
 			$jumlah_kontribusi = $kontribusi_level0 + $kontribusi_level1 + $kontribusi_level2 + $kontribusi_level3 + $kontribusi_level4 + $kontribusi_level5;
 
 			$nilai_maturity_level = $jumlah_kontribusi;
-			print_r($nilai_maturity_level);
+			// print_r($nilai_maturity_level);
 			$level = ceil($nilai_maturity_level);
 			
 			$data["it_process"] = $it_process;
